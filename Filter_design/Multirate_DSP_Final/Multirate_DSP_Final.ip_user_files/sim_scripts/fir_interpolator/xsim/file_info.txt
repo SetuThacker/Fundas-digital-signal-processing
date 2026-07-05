@@ -1,0 +1,1 @@
+fir_interpolator.vhd,vhdl,xil_defaultlib,../../../../Multirate_DSP_Final.gen/sources_1/ip/fir_interpolator/sim/fir_interpolator.vhd,

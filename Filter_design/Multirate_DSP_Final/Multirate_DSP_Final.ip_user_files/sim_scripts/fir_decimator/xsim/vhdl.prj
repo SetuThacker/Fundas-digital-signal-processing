@@ -1,0 +1,5 @@
+vhdl xil_defaultlib  \
+"../../../../Multirate_DSP_Final.gen/sources_1/ip/fir_decimator/sim/fir_decimator.vhd" \
+
+# Do not sort compile order
+nosort

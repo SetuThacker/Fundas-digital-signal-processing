@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_multirate_system_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_multirate_system" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="39,256,517 ps"></ZoomStartTime>
+      <ZoomEndTime time="39,256,528 ps"></ZoomEndTime>
+      <Cursor1Time time="39,256,907 ps"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="340"></NameColumnWidth>
+      <ValueColumnWidth column_width="155"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="12" />
+   <wvobject fp_name="/tb_multirate_system/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/s_axis_input_tdata" type="array">
+      <obj_property name="ElementShortName">s_axis_input_tdata[15:0]</obj_property>
+      <obj_property name="ObjectShortName">s_axis_input_tdata[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/s_axis_input_tvalid" type="logic">
+      <obj_property name="ElementShortName">s_axis_input_tvalid</obj_property>
+      <obj_property name="ObjectShortName">s_axis_input_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/m_axis_output_tdata" type="array">
+      <obj_property name="ElementShortName">m_axis_output_tdata[63:0]</obj_property>
+      <obj_property name="ObjectShortName">m_axis_output_tdata[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/m_axis_output_tvalid" type="logic">
+      <obj_property name="ElementShortName">m_axis_output_tvalid</obj_property>
+      <obj_property name="ObjectShortName">m_axis_output_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/probe_decimated_tdata" type="array">
+      <obj_property name="ElementShortName">probe_decimated_tdata[15:0]</obj_property>
+      <obj_property name="ObjectShortName">probe_decimated_tdata[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/probe_decimated_tvalid" type="logic">
+      <obj_property name="ElementShortName">probe_decimated_tvalid</obj_property>
+      <obj_property name="ObjectShortName">probe_decimated_tvalid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/input_memory" type="array">
+      <obj_property name="ElementShortName">input_memory[0:4095][15:0]</obj_property>
+      <obj_property name="ObjectShortName">input_memory[0:4095][15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/fd_decimated" type="array">
+      <obj_property name="ElementShortName">fd_decimated[31:0]</obj_property>
+      <obj_property name="ObjectShortName">fd_decimated[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/fd_interpolated" type="array">
+      <obj_property name="ElementShortName">fd_interpolated[31:0]</obj_property>
+      <obj_property name="ObjectShortName">fd_interpolated[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_multirate_system/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+</wave_config>

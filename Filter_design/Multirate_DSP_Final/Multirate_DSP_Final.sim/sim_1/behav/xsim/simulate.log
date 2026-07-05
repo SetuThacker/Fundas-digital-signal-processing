@@ -1,0 +1,4 @@
+Time resolution is 1 ps
+Simulation Complete. Output files generated.
+$finish called at time : 39256907 ps : File "C:/Users/setuthacker/Xilink_Projects/Multirate_DSP_Final/Multirate_DSP_Final.srcs/sources_1/new/tb_multirate_system.v" Line 101
+INFO: xsimkernel Simulation Memory Usage: 15676 KB (Peak: 15676 KB), Simulation CPU Usage: 28702 ms
