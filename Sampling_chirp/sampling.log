@@ -1,0 +1,41 @@
+2026-06-29 01:04:29 | INFO     | ======================================================================
+2026-06-29 01:04:29 | INFO     | Radar Simulation Parameters
+2026-06-29 01:04:29 | INFO     | ======================================================================
+2026-06-29 01:04:29 | INFO     | Bandwidth              : 120.00 MHz
+2026-06-29 01:04:29 | INFO     | Reference Fs           : 360.00 MHz
+2026-06-29 01:04:29 | INFO     | Duty Cycle             : 5.00 %
+2026-06-29 01:04:29 | INFO     | PRF                    : 5500.00 Hz
+2026-06-29 01:04:29 | INFO     | PRI                    : 181.818 us
+2026-06-29 01:04:29 | INFO     | Pulse Width            : 9.091 us
+2026-06-29 01:04:29 | INFO     | Chirp Rate             : 1.320e+13 Hz/s
+2026-06-29 01:04:29 | INFO     | Range Resolution       : 1.250 m
+2026-06-29 01:04:29 | INFO     | Receiving Window       : 172.727 us
+2026-06-29 01:04:29 | INFO     | Reference Samples      : 3273
+2026-06-29 01:04:29 | INFO     | ======================================================================
+2026-06-29 01:04:29 | INFO     | Sampling =  0.2x BW | Fs =   24.00 MHz | Samples =   219 | Reconstruction = -13.27%
+2026-06-29 01:04:29 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_0.2xBandwidth.png
+2026-06-29 01:04:29 | INFO     | Sampling =  0.5x BW | Fs =   60.00 MHz | Samples =   546 | Reconstruction =  12.64%
+2026-06-29 01:04:29 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_0.5xBandwidth.png
+2026-06-29 01:04:29 | INFO     | Sampling =  0.7x BW | Fs =   84.00 MHz | Samples =   764 | Reconstruction =  39.96%
+2026-06-29 01:04:30 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_0.7xBandwidth.png
+2026-06-29 01:04:30 | INFO     | Sampling =  1.0x BW | Fs =  120.00 MHz | Samples =  1091 | Reconstruction =  65.51%
+2026-06-29 01:04:30 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_1xBandwidth.png
+2026-06-29 01:04:30 | INFO     | Sampling =  2.0x BW | Fs =  240.00 MHz | Samples =  2182 | Reconstruction =  90.33%
+2026-06-29 01:04:30 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_2xBandwidth.png
+2026-06-29 01:04:30 | INFO     | Sampling =  3.0x BW | Fs =  360.00 MHz | Samples =  3273 | Reconstruction = 100.00%
+2026-06-29 01:04:31 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_3xBandwidth.png
+2026-06-29 01:04:31 | INFO     | Sampling =  4.0x BW | Fs =  480.00 MHz | Samples =  4364 | Reconstruction =  97.52%
+2026-06-29 01:04:31 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_4xBandwidth.png
+2026-06-29 01:04:31 | INFO     | Sampling =  5.0x BW | Fs =  600.00 MHz | Samples =  5455 | Reconstruction =  98.41%
+2026-06-29 01:04:31 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_5xBandwidth.png
+2026-06-29 01:04:31 | INFO     | Sampling =  6.0x BW | Fs =  720.00 MHz | Samples =  6546 | Reconstruction = 100.00%
+2026-06-29 01:04:32 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_6xBandwidth.png
+2026-06-29 01:04:32 | INFO     | Sampling =  7.0x BW | Fs =  840.00 MHz | Samples =  7637 | Reconstruction =  99.19%
+2026-06-29 01:04:32 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_7xBandwidth.png
+2026-06-29 01:04:32 | INFO     | Sampling =  8.0x BW | Fs =  960.00 MHz | Samples =  8728 | Reconstruction =  99.38%
+2026-06-29 01:04:32 | INFO     | Saved figure -> GalaxEye/Sampling_chirp\sampling_8xBandwidth.png
+2026-06-29 01:04:32 | INFO     | ======================================================================
+2026-06-29 01:04:32 | INFO     | Sampling analysis completed successfully.
+2026-06-29 01:04:32 | INFO     | Figures saved in : GalaxEye/Sampling_chirp
+2026-06-29 01:04:32 | INFO     | Log file         : GalaxEye/Sampling_chirp\sampling.log
+2026-06-29 01:04:32 | INFO     | ======================================================================
