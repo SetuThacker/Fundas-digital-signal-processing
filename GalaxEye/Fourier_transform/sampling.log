@@ -1,0 +1,42 @@
+2026-07-23 04:01:38 | INFO     | ======================================================================
+2026-07-23 04:01:38 | INFO     | Radar Simulation Parameters
+2026-07-23 04:01:38 | INFO     | ======================================================================
+2026-07-23 04:01:38 | INFO     | Bandwidth                 : 120.00 MHz
+2026-07-23 04:01:38 | INFO     | Reference Fs              : 360.00 MHz
+2026-07-23 04:01:38 | INFO     | Duty Cycle                : 5.00 %
+2026-07-23 04:01:38 | INFO     | PRF                       : 5500.00 Hz
+2026-07-23 04:01:38 | INFO     | PRI                       : 181.818 us
+2026-07-23 04:01:38 | INFO     | Pulse Width               : 9.091 us
+2026-07-23 04:01:38 | INFO     | Chirp Rate                : 1.320e+13 Hz/s
+2026-07-23 04:01:38 | INFO     | Range Resolution          : 1.250 m
+2026-07-23 04:01:38 | INFO     | Range Sample Resolution   : 0.417 m
+2026-07-23 04:01:38 | INFO     | Receiving Window          : 172.727 us
+2026-07-23 04:01:38 | INFO     | Reference Samples         : 3273
+2026-07-23 04:01:38 | INFO     | ======================================================================
+2026-07-23 04:01:38 | INFO     | Sampling =  0.2x BW | Fs =   24.00 MHz | Samples =   219 | Reconstruction = -13.27% | range_sample_resolution = 6.250 m
+2026-07-23 04:01:39 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_0.2xBandwidth.png
+2026-07-23 04:01:39 | INFO     | Sampling =  0.5x BW | Fs =   60.00 MHz | Samples =   546 | Reconstruction =  12.64% | range_sample_resolution = 2.500 m
+2026-07-23 04:01:39 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_0.5xBandwidth.png
+2026-07-23 04:01:39 | INFO     | Sampling =  0.7x BW | Fs =   84.00 MHz | Samples =   764 | Reconstruction =  39.96% | range_sample_resolution = 1.786 m
+2026-07-23 04:01:40 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_0.7xBandwidth.png
+2026-07-23 04:01:40 | INFO     | Sampling =  1.0x BW | Fs =  120.00 MHz | Samples =  1091 | Reconstruction =  65.51% | range_sample_resolution = 1.250 m
+2026-07-23 04:01:40 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_1xBandwidth.png
+2026-07-23 04:01:40 | INFO     | Sampling =  2.0x BW | Fs =  240.00 MHz | Samples =  2182 | Reconstruction =  90.33% | range_sample_resolution = 0.625 m
+2026-07-23 04:01:41 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_2xBandwidth.png
+2026-07-23 04:01:41 | INFO     | Sampling =  3.0x BW | Fs =  360.00 MHz | Samples =  3273 | Reconstruction = 100.00% | range_sample_resolution = 0.417 m
+2026-07-23 04:01:42 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_3xBandwidth.png
+2026-07-23 04:01:42 | INFO     | Sampling =  4.0x BW | Fs =  480.00 MHz | Samples =  4364 | Reconstruction =  97.52% | range_sample_resolution = 0.312 m
+2026-07-23 04:01:42 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_4xBandwidth.png
+2026-07-23 04:01:42 | INFO     | Sampling =  5.0x BW | Fs =  600.00 MHz | Samples =  5455 | Reconstruction =  98.41% | range_sample_resolution = 0.250 m
+2026-07-23 04:01:43 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_5xBandwidth.png
+2026-07-23 04:01:43 | INFO     | Sampling =  6.0x BW | Fs =  720.00 MHz | Samples =  6546 | Reconstruction = 100.00% | range_sample_resolution = 0.208 m
+2026-07-23 04:01:43 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_6xBandwidth.png
+2026-07-23 04:01:43 | INFO     | Sampling =  7.0x BW | Fs =  840.00 MHz | Samples =  7637 | Reconstruction =  99.19% | range_sample_resolution = 0.179 m
+2026-07-23 04:01:44 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_7xBandwidth.png
+2026-07-23 04:01:44 | INFO     | Sampling =  8.0x BW | Fs =  960.00 MHz | Samples =  8728 | Reconstruction =  99.38% | range_sample_resolution = 0.156 m
+2026-07-23 04:01:45 | INFO     | Saved figure -> GalaxEye/Fourier_transform\sampling_8xBandwidth.png
+2026-07-23 04:01:45 | INFO     | ======================================================================
+2026-07-23 04:01:45 | INFO     | Sampling analysis completed successfully.
+2026-07-23 04:01:45 | INFO     | Figures saved in : GalaxEye/Fourier_transform
+2026-07-23 04:01:45 | INFO     | Log file         : GalaxEye/Fourier_transform\sampling.log
+2026-07-23 04:01:45 | INFO     | ======================================================================

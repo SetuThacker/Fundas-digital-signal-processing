@@ -1,0 +1,20 @@
+{"event": "Import successful!", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "======================================================================", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "SAR Resolution Parameter Analysis", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "======================================================================", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "RANGE RESOLUTION (Slant Range)", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "Formula: \u0394R = c / (2 * Bandwidth)", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "  - Dependent ONLY on Bandwidth.", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "  - Example: At 100 MHz, Resolution = 1.50 meters", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "  - Example: At 300 MHz, Resolution = 0.50 meters", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "----------------------------------------------------------------------", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "AZIMUTH RESOLUTION (Along-Track)", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "Formula: \u0394AZ = L / 2  (where L is antenna length)", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "  - Counter-intuitively, smaller antennas yield finer resolution.", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "  - Independent of altitude or frequency/wavelength.", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "  - Example: 10m Antenna, Resolution = 5.00 meters", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "  - Example: 3m Antenna, Resolution = 1.50 meters", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "======================================================================", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:54"}
+{"event": "Plots generated successfully.", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:55"}
+{"event": "Figure saved to: d:\\Learning\\Signal_Processing\\Fundas-digital-signal-processing\\Pulse_compression\\SAR_Resolution_Analysis.png", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:55"}
+{"event": "======================================================================", "logger": "SAR_Analysis", "level": "info", "timestamp": "2026-07-22 23:30:55"}

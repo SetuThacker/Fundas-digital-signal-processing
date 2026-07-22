@@ -1,0 +1,17 @@
+2026-07-23 04:40:33 | INFO     | ======================================================================
+2026-07-23 04:40:33 | INFO     | SAR Resolution Parameter Analysis
+2026-07-23 04:40:33 | INFO     | ======================================================================
+2026-07-23 04:40:33 | INFO     | RANGE RESOLUTION (Slant Range)
+2026-07-23 04:40:33 | INFO     |   - Dependent ONLY on Bandwidth.
+2026-07-23 04:40:33 | INFO     |   - Example: At 100 MHz, Resolution = 1.50 meters
+2026-07-23 04:40:33 | INFO     |   - Example: At 300 MHz, Resolution = 0.50 meters
+2026-07-23 04:40:33 | INFO     | ----------------------------------------------------------------------
+2026-07-23 04:40:33 | INFO     | AZIMUTH RESOLUTION (Along-Track)
+2026-07-23 04:40:33 | INFO     |   - Counter-intuitively, smaller antennas yield finer resolution.
+2026-07-23 04:40:33 | INFO     |   - Independent of altitude or frequency/wavelength.
+2026-07-23 04:40:33 | INFO     |   - Example: 10m Antenna, Resolution = 5.00 meters
+2026-07-23 04:40:33 | INFO     |   - Example: 3m Antenna, Resolution = 1.50 meters
+2026-07-23 04:40:33 | INFO     | ======================================================================
+2026-07-23 04:40:34 | INFO     | Plots generated successfully.
+2026-07-23 04:40:34 | INFO     | Figure saved to: D:\Learning\Signal_Processing\Fundas-digital-signal-processing\Pulse_compression\SAR_Resolution_Analysis.png
+2026-07-23 04:40:34 | INFO     | ======================================================================

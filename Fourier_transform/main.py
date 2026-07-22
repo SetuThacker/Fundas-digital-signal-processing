@@ -56,6 +56,7 @@ Tp = Duty_cycle * PRI
 chirpRate = BW / Tp
 
 rangeResolution = c / (2 * BW)
+rangeSampleResoltion = c / (2 * Fs_ref)
 receivingWindow = PRI - Tp
 
 num_samples = int(receivingWindow * Fs_ref)
@@ -75,16 +76,17 @@ x_ref = np.exp(1j * np.pi * chirpRate * t_ref**2)
 logger.info("=" * 70)
 logger.info("Radar Simulation Parameters")
 logger.info("=" * 70)
-logger.info("Bandwidth              : %.2f MHz", BW / 1e6)
-logger.info("Reference Fs           : %.2f MHz", Fs_ref / 1e6)
-logger.info("Duty Cycle             : %.2f %%", Duty_cycle * 100)
-logger.info("PRF                    : %.2f Hz", PRF)
-logger.info("PRI                    : %.3f us", PRI * 1e6)
-logger.info("Pulse Width            : %.3f us", Tp * 1e6)
-logger.info("Chirp Rate             : %.3e Hz/s", chirpRate)
-logger.info("Range Resolution       : %.3f m", rangeResolution)
-logger.info("Receiving Window       : %.3f us", receivingWindow * 1e6)
-logger.info("Reference Samples      : %d", len(t_ref))
+logger.info("Bandwidth                 : %.2f MHz", BW / 1e6)
+logger.info("Reference Fs              : %.2f MHz", Fs_ref / 1e6)
+logger.info("Duty Cycle                : %.2f %%", Duty_cycle * 100)
+logger.info("PRF                       : %.2f Hz", PRF)
+logger.info("PRI                       : %.3f us", PRI * 1e6)
+logger.info("Pulse Width               : %.3f us", Tp * 1e6)
+logger.info("Chirp Rate                : %.3e Hz/s", chirpRate)
+logger.info("Range Resolution          : %.3f m", rangeResolution)
+logger.info("Range Sample Resolution   : %.3f m", rangeSampleResoltion)
+logger.info("Receiving Window          : %.3f us", receivingWindow * 1e6)
+logger.info("Reference Samples         : %d", len(t_ref))
 logger.info("=" * 70)
 
 # ============================================================================
@@ -105,6 +107,8 @@ for M in Fs_multiples:
     xr = np.interp(t_ref, t, np.real(x))
     xi = np.interp(t_ref, t, np.imag(x))
 
+    range_sample_resolution = c / (2 * Fs)
+
     x_rec = xr + 1j * xi
 
     error = np.linalg.norm(x_ref - x_rec)
@@ -113,11 +117,12 @@ for M in Fs_multiples:
     captured = 100 * (1 - error / reference)
 
     logger.info(
-        "Sampling = %4.1fx BW | Fs = %7.2f MHz | Samples = %5d | Reconstruction = %6.2f%%",
+        "Sampling = %4.1fx BW | Fs = %7.2f MHz | Samples = %5d | Reconstruction = %6.2f%% | range_sample_resolution = %.3f m",
         M,
         Fs / 1e6,
         len(t),
         captured,
+        range_sample_resolution,
     )
 
     # ------------------------------------------------------------------------
