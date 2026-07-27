@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 # ============================================================================
 # Create output directory
 # ============================================================================
-data_path = "GalaxEye/Fourier_transform"
+data_path = "Fourier_transform"
 os.makedirs(data_path, exist_ok=True)
 
 # ============================================================================
@@ -155,14 +155,18 @@ for M in Fs_multiples:
 
     plt.subplot(1,2,2)
 
+    Xf = np.fft.fftshift(np.fft.fft(x))
+    Xn = np.abs(Xf) / len(x)  # Correct DFT magnitude normalization
+    freq = np.fft.fftshift(np.fft.fftfreq(len(x), dt))
+
     plt.plot(
-        t * 1e6,
-        np.real(np.fft.fftshift(np.fft.fft(x))),
+        freq / 1e6,
+        Xn,
         label=f"{M}× BW ({Fs/1e6:.1f} MHz)"
     )
 
-    plt.xlabel("Time (µs)")
-    plt.ylabel("Amplitude")
+    plt.xlabel("Frequency (MHz)")
+    plt.ylabel("Normalized magnitude")
     plt.title(f"Chirp in Frequency Domain at {M} × Bandwidth")
     plt.grid(True)
     plt.legend()
