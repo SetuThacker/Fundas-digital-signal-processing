@@ -128,16 +128,9 @@ for M in Fs_multiples:
     # ------------------------------------------------------------------------
     # Plot
     # ------------------------------------------------------------------------
-    plt.figure(figsize=(10, 4))
+    plt.figure(figsize=(20, 8))
 
-    plt.subplot(1,2,1)
-
-    # plt.plot(
-    #     t_ref * 1e6,
-    #     np.real(x_ref),
-    #     linewidth=2,
-    #     label="Reference"
-    # )
+    plt.subplot(2,2,1)
 
     plt.plot(
         t * 1e6,
@@ -153,7 +146,7 @@ for M in Fs_multiples:
     plt.grid(True)
     plt.legend()
 
-    plt.subplot(1,2,2)
+    plt.subplot(2,2,2)
 
     Xf = np.fft.fftshift(np.fft.fft(x))
     Xn = np.abs(Xf) / len(x)  # Correct DFT magnitude normalization
@@ -168,6 +161,40 @@ for M in Fs_multiples:
     plt.xlabel("Frequency (MHz)")
     plt.ylabel("Normalized magnitude")
     plt.title(f"Chirp in Frequency Domain at {M} × Bandwidth")
+    plt.grid(True)
+    plt.legend()
+
+    plt.subplot(2,2,3)
+
+    plt.plot(
+        t * 1e6,
+        np.unwrap(np.angle(x)),
+        "o-",
+        markersize=4,
+        label=f"{M}× BW ({Fs/1e6:.1f} MHz)"
+    )
+
+    plt.xlabel("Time (µs)")
+    plt.ylabel("Phase (radians)")
+    plt.title(f"Phase in Time Domain at {M} × Bandwidth")
+    plt.grid(True)
+    plt.legend()
+
+    plt.subplot(2,2,4)
+
+    Xf = np.fft.fftshift(np.fft.fft(x))
+    Xn = np.unwrap(np.angle(Xf)) / len(x)  # Correct DFT magnitude normalization
+    freq = np.fft.fftshift(np.fft.fftfreq(len(x), dt))
+
+    plt.plot(
+        freq / 1e6,
+        Xn,
+        label=f"{M}× BW ({Fs/1e6:.1f} MHz)"
+    )
+
+    plt.xlabel("Frequency (MHz)")
+    plt.ylabel("Phase (radians)")
+    plt.title(f"Phase in Frequency Domain at {M} × Bandwidth")
     plt.grid(True)
     plt.legend()
 
