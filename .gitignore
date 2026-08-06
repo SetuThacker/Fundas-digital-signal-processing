@@ -1,2 +1,5 @@
 .log
 .png
+Antenna_calibration/*.pdf
+Antenna_calibration/*.png
+Fourier_transform/*.png
