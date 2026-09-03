@@ -2,4 +2,5 @@
 .png
 Antenna_calibration/*.pdf
 Antenna_calibration/*.png
+*.png
 Fourier_transform/*.png
