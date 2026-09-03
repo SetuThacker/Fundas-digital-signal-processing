@@ -1,13 +1,7 @@
-# config.yaml
 system:
-  output_dir: "./output_plots"  # Relative path for generated artifacts
+  output_dir: "./output_plots"
 
-iir_pole_experiment:
-  impulse_length: 20
-  stable_pole: 0.8
-  unstable_pole: 1.2
-
-fir_zero_experiment:
-  impulse_length: 10
-  minimum_phase_zero: 0.5    # Inside unit circle
-  maximum_phase_zero: 2.0    # Outside unit circle
+multi_root_experiment:
+  impulse_length: 50
+  zeros: [1.0, -1.0]          # Rejects DC (0 Hz) and Nyquist frequencies
+  poles: ["0+0.9j", "0-0.9j"] # Resonates at 1/4 the sampling frequency
