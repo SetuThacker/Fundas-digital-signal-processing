@@ -15,13 +15,26 @@ def zpk_to_ba(zeros, poles, gain=1.0):
     
     Formula: Polynomial Expansion of Transfer Function H(z)
     H(z) = Gain * [ (z - z_1)(z - z_2)...(z - z_M) ] / [ (z - p_1)(z - p_2)...(z - p_N) ]
-    
-    np.poly() multiplies these binomial factors to yield the coefficients of 
-    the resulting polynomial in descending powers of z.
     """
-    b = np.poly(zeros) * gain  # Numerator polynomial coefficients
-    a = np.poly(poles)         # Denominator polynomial coefficients
+    b = np.poly(zeros) * gain 
+    a = np.poly(poles)         
     return np.real_if_close(b), np.real_if_close(a)
+
+def generate_composite_signal(fs, duration, frequencies):
+    """
+    Generates a composite time-domain signal from multiple frequencies.
+    
+    Formula: Discrete-time sinusoidal sequence
+    x[n] = sum( sin(2 * pi * f_k * n / fs) ) for each frequency f_k
+    """
+    # Formula: t = n * T_s = n / f_s
+    t = np.arange(0, duration, 1/fs)
+    x = np.zeros(len(t))
+    
+    for f in frequencies:
+        x += np.sin(2 * np. np.pi * f * t)
+        
+    return t, x
 
 def generalized_filter(b, a, x):
     """
@@ -31,18 +44,13 @@ def generalized_filter(b, a, x):
     y[n] = (1/a[0]) * ( sum_{k=0}^{M} b[k]*x[n-k] - sum_{k=1}^{N} a[k]*y[n-k] )
     """
     y = np.zeros(len(x))
-    
-    # Normalize by a[0] as required by the LCCDE formula
     b = np.array(b) / a[0]
     a = np.array(a) / a[0]
     
     for n in range(len(x)):
-        # Feedforward calculation: sum_{k=0}^{M} b[k]*x[n-k]
         for k in range(len(b)):
             if n - k >= 0:
                 y[n] += b[k] * x[n - k]
-                
-        # Feedback calculation: sum_{k=1}^{N} a[k]*y[n-k]
         for k in range(1, len(a)):
             if n - k >= 0:
                 y[n] -= a[k] * y[n - k]
@@ -77,36 +85,36 @@ def main():
     out_dir = cfg['system']['output_dir']
     os.makedirs(out_dir, exist_ok=True)
 
+    # 1. Parse Roots
     cfg_exp = cfg['multi_root_experiment']
-    length = cfg_exp['impulse_length']
-    
-    # Complex parsing logic: converting "0+0.9j" string to complex type
     zeros = np.array([complex(z) if isinstance(z, str) else z for z in cfg_exp['zeros']])
     poles = np.array([complex(p) if isinstance(p, str) else p for p in cfg_exp['poles']])
-
     b, a = zpk_to_ba(zeros, poles)
-    
-    # Formula: Impulse generation (discrete delta function)
-    # delta[n] = 1 for n=0, 0 otherwise
-    impulse = np.zeros(length)
-    impulse[0] = 1.0
-    
-    response = generalized_filter(b, a, impulse)
 
-    fig = plt.figure(figsize=(12, 5))
+    # 2. Generate Custom Input Signal
+    sig_cfg = cfg['signal_generation']
+    t, input_signal = generate_composite_signal(sig_cfg['fs'], sig_cfg['duration'], sig_cfg['frequencies'])
+    
+    # 3. Apply Filter
+    filtered_signal = generalized_filter(b, a, input_signal)
+
+    # 4. Plotting
+    fig = plt.figure(figsize=(14, 5))
     
     ax1 = plt.subplot(1, 2, 1)
     plot_zplane(zeros, poles, ax1)
     
     ax2 = plt.subplot(1, 2, 2)
-    ax2.stem(range(length), response)
-    ax2.set_title("Time Domain: Impulse Response")
-    ax2.set_xlabel("Samples (n)")
+    ax2.plot(t, input_signal, color='lightgray', label='Input Signal (Raw)')
+    ax2.plot(t, filtered_signal, color='blue', label='Filtered Signal', linewidth=1.5)
+    ax2.set_title("Time Domain: Filtering a Continuous Signal")
+    ax2.set_xlabel("Time (s)")
     ax2.set_ylabel("Amplitude")
+    ax2.legend()
     ax2.grid(True, linestyle=':', alpha=0.6)
 
     plt.tight_layout()
-    save_path = os.path.join(out_dir, "multi_root_response.png")
+    save_path = os.path.join(out_dir, "custom_signal_response.png")
     plt.savefig(save_path)
     print(f"Saved visualization to {save_path}")
 

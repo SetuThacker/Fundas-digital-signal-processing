@@ -1,7 +1,11 @@
-system:
+  system:
   output_dir: "./output_plots"
 
+signal_generation:
+  fs: 1000.0               # Sampling frequency in Hz
+  duration: 0.1            # Total time in seconds
+  frequencies: [50, 250]   # Combines a 50 Hz and a 250 Hz sine wave
+
 multi_root_experiment:
-  impulse_length: 50
-  zeros: [1.0, -1.0]          # Rejects DC (0 Hz) and Nyquist frequencies
-  poles: ["0+0.9j", "0-0.9j"] # Resonates at 1/4 the sampling frequency
+  zeros: [1.0, -1.0]       # Rejects DC (0 Hz) and Nyquist frequencies
+  poles: ["0+0.85j", "0-0.85j"] # Resonates at 1/4 the sampling frequency
