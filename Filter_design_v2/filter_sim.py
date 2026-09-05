@@ -3,6 +3,7 @@ import yaml
 import os
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.signal import filtfilt
 
 def load_config(config_path):
     with open(config_path, 'r') as file:
@@ -20,59 +21,49 @@ def calculate_notch_roots(f_target, fs, r):
     return zeros, poles
 
 def zpk_to_ba(zeros, poles):
-    """Converts roots to polynomial coefficients and normalizes DC gain to 1.0."""
     b = np.poly(zeros)
     a = np.poly(poles) if len(poles) > 0 else [1.0]
-    
     b = np.real_if_close(b)
     a = np.real_if_close(a)
-    
-    # Normalize DC gain (w=0, z=1)
     dc_gain = np.sum(b) / np.sum(a)
     b = b / dc_gain
-    
     return b, a
 
-def generate_composite_signal(fs, duration, frequencies):
+def generate_signals(fs, duration, all_freqs, target_freq):
+    """Generates both the noisy input and the clean ground truth."""
     t = np.arange(0, duration, 1/fs)
-    x = np.zeros(len(t))
-    for f in frequencies:
-        x += np.sin(2 * np.pi * f * t)
-    return t, x
+    clean_signal = np.zeros(len(t))
+    noisy_signal = np.zeros(len(t))
+    
+    for f in all_freqs:
+        wave = np.sin(2 * np.pi * f * t)
+        noisy_signal += wave
+        # Add to clean signal ONLY if it is not the target frequency
+        if f != target_freq:
+            clean_signal += wave
+            
+    return t, clean_signal, noisy_signal
 
-def generalized_filter(b, a, x):
-    y = np.zeros(len(x))
-    b = np.array(b) / a[0]
-    a = np.array(a) / a[0]
+def evaluate_filter_performance(clean_signal, filtered_signal):
+    error = clean_signal - filtered_signal
+    rmse = np.sqrt(np.mean(error**2))
+    correlation = np.corrcoef(clean_signal, filtered_signal)[0, 1]
     
-    for n in range(len(x)):
-        for k in range(len(b)):
-            if n - k >= 0:
-                y[n] += b[k] * x[n - k]
-        for k in range(1, len(a)):
-            if n - k >= 0:
-                y[n] -= a[k] * y[n - k]
-    return y
+    signal_power = np.sum(clean_signal**2)
+    noise_power = np.sum(error**2)
+    sdr = 10 * np.log10(signal_power / noise_power) if noise_power > 0 else np.inf
+    
+    return rmse, correlation, sdr
 
-def plot_zplane(zeros, poles, ax, title):
-    circle = plt.Circle((0, 0), 1, color='lightgray', fill=False, linestyle='--')
-    ax.add_patch(circle)
+def extract_passband_attenuation(clean_signal, filtered_signal, fs, check_freq):
+    N = len(clean_signal)
+    freqs = np.fft.rfftfreq(N, d=1/fs)
+    bin_idx = np.argmin(np.abs(freqs - check_freq))
     
-    if len(zeros) > 0:
-        ax.scatter(np.real(zeros), np.imag(zeros), s=100, facecolors='none', edgecolors='b', label='Zeros (O)')
-    if len(poles) > 0:
-        ax.scatter(np.real(poles), np.imag(poles), s=100, marker='x', color='r', label='Poles (X)')
+    mag_clean = np.abs(np.fft.rfft(clean_signal))[bin_idx]
+    mag_filtered = np.abs(np.fft.rfft(filtered_signal))[bin_idx]
     
-    ax.axhline(0, color='black', lw=0.5)
-    ax.axvline(0, color='black', lw=0.5)
-    ax.set_aspect('equal')
-    ax.set_xlim([-1.5, 1.5])
-    ax.set_ylim([-1.5, 1.5])
-    ax.set_title(title)
-    ax.set_xlabel("Real")
-    ax.set_ylabel("Imaginary")
-    ax.legend(loc='upper right')
-    ax.grid(True, linestyle=':', alpha=0.6)
+    return 20 * np.log10((mag_filtered + 1e-12) / (mag_clean + 1e-12))
 
 def main():
     parser = argparse.ArgumentParser()
@@ -80,73 +71,46 @@ def main():
     args = parser.parse_args()
 
     cfg = load_config(args.config)
-    out_dir = cfg['system']['output_dir']
-    os.makedirs(out_dir, exist_ok=True)
-
-    sig_cfg = cfg['signal_generation']
-    fs = sig_cfg['fs']
-    notch_cfg = cfg['notch_experiment']
-
-    # 1. Generate Input Signal
-    t, input_signal = generate_composite_signal(fs, sig_cfg['duration'], sig_cfg['frequencies'])
+    fs = cfg['signal_generation']['fs']
+    target_freq = cfg['notch_experiment']['target_freq']
+    
+    # 1. Generate Clean (Ground Truth) and Noisy Signals
+    t, clean_signal, noisy_signal = generate_signals(
+        fs, 
+        cfg['signal_generation']['duration'], 
+        cfg['signal_generation']['frequencies'], 
+        target_freq
+    )
 
     # 2. Design Filters
-    zeros, poles = calculate_notch_roots(notch_cfg['target_freq'], fs, notch_cfg['pole_radius'])
-    
-    # Uncompensated (FIR) - No Poles
+    zeros, poles = calculate_notch_roots(target_freq, fs, cfg['notch_experiment']['pole_radius'])
     b_uncomp, a_uncomp = zpk_to_ba(zeros, [])
-    # Compensated (IIR) - Zeros and Poles
     b_comp, a_comp = zpk_to_ba(zeros, poles)
 
-    # 3. Apply Filters
-    filtered_uncomp = generalized_filter(b_uncomp, a_uncomp, input_signal)
-    filtered_comp = generalized_filter(b_comp, a_comp, input_signal)
+    # 3. Apply Zero-Phase Filtering (filtfilt) for Accurate Metric Comparison
+    filtered_uncomp = filtfilt(b_uncomp, a_uncomp, noisy_signal)
+    filtered_comp = filtfilt(b_comp, a_comp, noisy_signal)
 
-    # 4. Compute FFT
-    N = len(input_signal)
-    freqs = np.fft.rfftfreq(N, d=1/fs)
-    fft_input = np.abs(np.fft.rfft(input_signal)) / (N / 2)
-    fft_uncomp = np.abs(np.fft.rfft(filtered_uncomp)) / (N / 2)
-    fft_comp = np.abs(np.fft.rfft(filtered_comp)) / (N / 2)
+    # 4. Evaluate and Print Metrics
+    print("\n--- Uncompensated Filter (Zeros Only) ---")
+    rmse_u, corr_u, sdr_u = evaluate_filter_performance(clean_signal, filtered_uncomp)
+    print(f"RMSE: {rmse_u:.4f}")
+    print(f"Correlation: {corr_u:.4f}")
+    print(f"Signal-to-Distortion Ratio (SDR): {sdr_u:.2f} dB")
+    for f in cfg['signal_generation']['frequencies']:
+        if f != target_freq:
+            att = extract_passband_attenuation(clean_signal, filtered_uncomp, fs, f)
+            print(f"Attenuation at {f}Hz: {att:.2f} dB")
 
-    # 5. Plotting (2x2 Grid)
-    fig = plt.figure(figsize=(16, 12))
-    
-    # Top Left: Z-Plane (Uncompensated)
-    ax1 = plt.subplot(2, 2, 1)
-    plot_zplane(zeros, [], ax1, "Z-Plane: Uncompensated (Zeros Only)")
-    
-    # Top Right: Z-Plane (Compensated)
-    ax2 = plt.subplot(2, 2, 2)
-    plot_zplane(zeros, poles, ax2, f"Z-Plane: Compensated (r={notch_cfg['pole_radius']})")
-
-    # Bottom Left: Time Domain
-    ax3 = plt.subplot(2, 2, 3)
-    ax3.plot(t, input_signal, color='lightgray', label='Raw Input')
-    ax3.plot(t, filtered_uncomp, color='red', alpha=0.7, label='Uncompensated (FIR)')
-    ax3.plot(t, filtered_comp, color='blue', linewidth=1.5, label='Compensated (IIR)')
-    ax3.set_title("Time Domain Response")
-    ax3.set_xlabel("Time (s)")
-    ax3.set_ylabel("Amplitude")
-    ax3.legend()
-    ax3.grid(True, linestyle=':', alpha=0.6)
-
-    # Bottom Right: Frequency Domain (FFT)
-    ax4 = plt.subplot(2, 2, 4)
-    ax4.plot(freqs, fft_input, color='lightgray', marker='o', label='Raw Spectrum')
-    ax4.plot(freqs, fft_uncomp, color='red', marker='x', alpha=0.7, label='Uncompensated Spectrum')
-    ax4.plot(freqs, fft_comp, color='blue', marker='+', linewidth=1.5, label='Compensated Spectrum')
-    ax4.set_title("Frequency Domain (FFT Magnitude)")
-    ax4.set_xlabel("Frequency (Hz)")
-    ax4.set_ylabel("Magnitude")
-    ax4.set_xlim(0, 150)
-    ax4.legend()
-    ax4.grid(True, linestyle=':', alpha=0.6)
-
-    plt.tight_layout()
-    save_path = os.path.join(out_dir, "notch_filter_comparison.png")
-    plt.savefig(save_path)
-    print(f"Saved visualization to {save_path}")
+    print("\n--- Compensated Filter (Zeros + Poles) ---")
+    rmse_c, corr_c, sdr_c = evaluate_filter_performance(clean_signal, filtered_comp)
+    print(f"RMSE: {rmse_c:.4f}")
+    print(f"Correlation: {corr_c:.4f}")
+    print(f"Signal-to-Distortion Ratio (SDR): {sdr_c:.2f} dB")
+    for f in cfg['signal_generation']['frequencies']:
+        if f != target_freq:
+            att = extract_passband_attenuation(clean_signal, filtered_comp, fs, f)
+            print(f"Attenuation at {f}Hz: {att:.2f} dB")
 
 if __name__ == "__main__":
     main()
