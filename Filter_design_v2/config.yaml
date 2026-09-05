@@ -1,11 +1,11 @@
-  system:
+system:
   output_dir: "./output_plots"
 
 signal_generation:
-  fs: 1000.0               # Sampling frequency in Hz
-  duration: 0.1            # Total time in seconds
-  frequencies: [50, 250]   # Combines a 50 Hz and a 250 Hz sine wave
+  fs: 100000.0
+  duration: 0.2
+  frequencies: [45, 50, 55]  # E.g., 10 Hz signal, 50 Hz noise to notch, 120 Hz noise
 
-multi_root_experiment:
-  zeros: [1.0, -1.0]       # Rejects DC (0 Hz) and Nyquist frequencies
-  poles: ["0+0.85j", "0-0.85j"] # Resonates at 1/4 the sampling frequency
+notch_experiment:
+  target_freq: 50.0  # The exact frequency to eliminate
+  pole_radius: 0.95  # The 'r' value for the compensating poles
