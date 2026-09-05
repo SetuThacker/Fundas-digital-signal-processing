@@ -32,7 +32,7 @@ def generate_composite_signal(fs, duration, frequencies):
     x = np.zeros(len(t))
     
     for f in frequencies:
-        x += np.sin(2 * np. np.pi * f * t)
+        x += np.sin(2 * np.pi * f * t)
         
     return t, x
 
